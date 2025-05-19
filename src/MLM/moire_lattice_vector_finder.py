@@ -44,7 +44,7 @@ def angle_between(v1: np.ndarray, v2: np.ndarray) -> float:
 @njit
 def find_index_chunk(a1, a2, a3,
                      b1, b2, b3,
-                     theta_chunk, range_2, combined_list,
+                     theta_chunk, combined_list,
                      dtol, ang_lat):
     final_selected_index = []
     for deg in theta_chunk:
@@ -54,7 +54,7 @@ def find_index_chunk(a1, a2, a3,
         b_2r = rot_matrix @ b2.T
         b_3r = rot_matrix @ b3.T
         
-        for n1 in range_2:
+        for n1 in combined_list:
             for n2 in combined_list:
                 for m1 in combined_list:
                     for m2 in combined_list:
@@ -74,7 +74,7 @@ def find_index_chunk(a1, a2, a3,
                 #norm_A2 = np.linalg.norm(A2)
                 angle_A1_A2 = angle_between(A1,A2)
                 delta_angle = np.abs(angle_A1_A2 - ang_lat)
-                if delta_angle < 0.01:
+                if delta_angle < 0.1:
                     final_selected_index.append((deg, n_1, n_2, n_1p, n_2p, v_d, delta_angle,
                                                   np.linalg.norm(A1+A2), A1, A2))
     
@@ -96,6 +96,7 @@ def find_index(a1, a2, a3,
     ang_lat = ang_lat
     
     theta_array = np.arange(theta_min, theta_max, theta_step)
+    #theta_array = np.array([i + offset for i in range(1, 31) for offset in np.arange(-0.1, 0.1, 0.02)])
     range_1 = list(range(-n_max, -n_min + 1))
     range_2 = list(range(n_min, n_max + 1))
     combined_list = np.array(range_1 + range_2)
@@ -107,7 +108,7 @@ def find_index(a1, a2, a3,
     
     # Use multiprocessing to execute find_index_chunk on each chunk
     with mp.Pool(processes=num_cores) as pool:
-        results = pool.starmap(find_index_chunk, [(a1, a2, a3, b1, b2, b3, chunk, range_2, combined_list, dtol, ang_lat) for chunk in theta_chunks])
+        results = pool.starmap(find_index_chunk, [(a1, a2, a3, b1, b2, b3, chunk, combined_list, dtol, ang_lat) for chunk in theta_chunks])
     
     # Combine results from all chunks
     qualified_index = [item for sublist in results for item in sublist]
