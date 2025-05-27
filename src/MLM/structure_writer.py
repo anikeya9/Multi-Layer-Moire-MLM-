@@ -1,6 +1,6 @@
 import numpy as np 
 import pandas as pd 
-from finalised_scripts import angle_between as angle
+import MLM.angle_between as angle
 
 def read_vasp(file_path):
     lattice_vectors = {}
