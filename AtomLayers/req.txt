@@ -1,0 +1,6 @@
+numpy
+fire
+tqdm
+polars
+ruff
+icecream
