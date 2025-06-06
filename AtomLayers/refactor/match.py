@@ -206,6 +206,9 @@ def run_and_filter(a1, a2, g1, g2, degmin, degmax, degstep, dtol, nmin, nmax, go
     
     allresults = []
     
+    if df.height == 0:
+        return allresults
+    
     for good_angle in goodangles:
         
         results = filtermatches(a1,a2,df,good_angle)
