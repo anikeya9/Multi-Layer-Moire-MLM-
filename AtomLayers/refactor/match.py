@@ -133,7 +133,9 @@ def scan(A, G, theta, tol, xlim, ylim):
                 m1_true, m2_true = sol[:, j]
                 m1, m2 = solrounded[:, j]
                 n1, n2 = AlphaLattice_alpha[:, j]
-                delvec = np.linalg.norm(B @ np.array([m1, m2]) - A @ np.array([n1, n2]))
+                matchpoint_iota = A @ np.array([n1, n2])) # match points in iota basis
+                delvec = np.linalg.norm(B @ np.array([m1, m2]) - matchpoint_iota)
+                # delvec = np.linalg.norm(B @ np.array([m1, m2]) - A @ np.array([n1, n2i]) )
                 match = {
                     "n1": n1,
                     "n2": n2,
@@ -145,6 +147,7 @@ def scan(A, G, theta, tol, xlim, ylim):
                     "delvec": delvec,
                     "m1_true": m1_true,
                     "m2_true": m2_true,
+                    "matchpoint": matchpoint_iota.tolist()
                 }
                 matches.append(match)
                 # print(match)
