@@ -158,8 +158,8 @@ def scan(A, G, theta, tol, xlim, ylim):
 
 def run(a1, a2, g1, g2, degmin, degmax, degstep, dtol, nmin, nmax):
     
-    A = np.array([a1,a2])
-    G = np.array([g1,g2])
+    A = np.array([a1,a2]).T
+    G = np.array([g1,g2]).T
 
     xlim = ylim = (nmin,nmax)
     angles = np.arange(degmin,degmax,degstep)
@@ -186,12 +186,13 @@ def filtermatches(a1,a2,df,goodangle=90.0):
         N = angdf["n1","n2"].to_numpy()
         
         V = N @ A.T
+        V /= np.linalg.norm(V, axis=1, keepdims=True)
         dot =  V @ V.T
         cos = np.cos(np.deg2rad(goodangle))
         
         
         ix,iy = np.where( np.isclose(dot, cos) )
-    
+        
         indpairs = list(zip(ix,iy))
 
         for p in indpairs:
@@ -200,7 +201,6 @@ def filtermatches(a1,a2,df,goodangle=90.0):
             results.append([angdf.row(a,named=True),angdf.row(b,named=True),{"delgoodangle":delta}])
 
     return results
-
 
 
 def run_and_filter(a1, a2, g1, g2, degmin, degmax, degstep, dtol, nmin, nmax, goodangles):
