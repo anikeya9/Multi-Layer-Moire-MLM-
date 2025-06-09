@@ -43,6 +43,12 @@ def _(a1, a2, g1, g2, run_and_filter):
 
 
 @app.cell
+def _(results):
+    results[0]["results"][-40:]
+    return
+
+
+@app.cell
 def _(np):
     _a = np.array([2.467291, 8.546948])
     _b = np.array([-6.168228, 6.410211])
