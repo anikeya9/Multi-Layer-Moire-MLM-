@@ -189,6 +189,8 @@ def filtermatches(a1,a2,df,goodangle=90.0):
         V /= np.linalg.norm(V, axis=1, keepdims=True)
         dot =  V @ V.T
         cos = np.cos(np.deg2rad(goodangle))
+        #if np.isclose(ang,27.8):
+        #    print(angdf[0:10])
         
         
         ix,iy = np.where( np.isclose(dot, cos) )

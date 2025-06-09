@@ -9,7 +9,9 @@ def _():
     import numpy as np
     from match import run_and_filter, run, filtermatches
     from tool import angle_in_degrees
-    return filtermatches, np, run, run_and_filter
+
+    from pprint import pprint
+    return np, pprint, run, run_and_filter
 
 
 @app.cell
@@ -36,13 +38,26 @@ def _():
 
 @app.cell
 def _(a1, a2, g1, g2, run_and_filter):
-    results = run_and_filter(a1,a2,g1,g2,degmin=0,degmax=30,degstep=0.01,nmin=-20,nmax=20,dtol=1e-4, goodangles=[120.0])
+    results = run_and_filter(a1,a2,g1,g2,degmin=20,degmax=30,degstep=0.01,nmin=-20,nmax=20,dtol=3e-4, goodangles=[60.0])
     return (results,)
 
 
 @app.cell
-def _(results):
-    results
+def _(np):
+    _a = np.array([2.467291, 8.546948])
+    _b = np.array([-6.168228, 6.410211])
+
+    _a /= np.linalg.norm(_a)
+    _b /= np.linalg.norm(_b)
+
+    np.dot(_a,_b), np.cos(np.deg2rad(120))
+    return
+
+
+@app.cell
+def _(pprint, results):
+    for _r in results:
+        pprint(_r["results"])
     return
 
 
@@ -54,61 +69,25 @@ def _():
 
 @app.cell
 def _(a1, a2, g1, g2, run):
-    r = run(a1,a2,g1,g2,degmin=0,degmax=30,degstep=0.01,nmin=-20,nmax=20,dtol=1e-4)
+    r = run(a1,a2,g1,g2,degmin=0,degmax=30,degstep=0.01,nmin=-20,nmax=20,dtol=5e-4)
 
     return (r,)
 
 
 @app.cell
-def _(np, r):
-    v1 = np.array(r[0]["matchpoint"].to_numpy()[0], dtype=float)
-    v1 /= np.linalg.norm(v1)
-    return (v1,)
-
-
-@app.cell
-def _(np, r):
-    v2 = np.array(r[2]["matchpoint"].to_numpy()[0], dtype=float)
-    v2 /= np.linalg.norm(v2)
-    np.linalg.norm(v2)
-    return (v2,)
-
-
-@app.cell
-def _(np, v1, v2):
-    np.rad2deg(np.arccos(np.dot(v1,v2)))
-    return
-
-
-@app.cell
 def _(r):
-    r
+    for _a in r["angle"].unique():
+        print(_a)
     return
 
 
-@app.cell
-def _(a1, a2, filtermatches, r):
-    filtermatches(a1,a2,r,goodangle=120)
-    return
+app._unparsable_cell(
+    r"""
+    for _r in filtermatches(a1,a2,r,goodangle=120):
 
-
-@app.cell
-def _(a1, a2, np, r):
-    f = r.filter(r["angle"] == 9.43)
-    V = np.array(f["matchpoint"].to_list())
-    V /= np.linalg.norm(V, axis=1, keepdims=True)
-    # np.linalg.norm(V, axis=1, keepdims=True)
-
-    N = f["n1","n2"].to_numpy()
-    V1 = N @ np.array([a1, a2])
-    V1 /= np.linalg.norm(V1, axis=1, keepdims=True)
-    return N, V, V1
-
-
-@app.cell
-def _(V1):
-    V1[:,0]**2 + V1[:,1]**2
-    return
+    """,
+    name="_"
+)
 
 
 @app.cell
