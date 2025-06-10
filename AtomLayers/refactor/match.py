@@ -193,7 +193,7 @@ def filtermatches(a1,a2,df,goodangle=90.0):
         #    print(angdf[0:10])
         
         
-        ix,iy = np.where( np.isclose(dot, cos) )
+        ix,iy = np.where( np.isclose(dot, cos, rtol=1e-3) )
         
         indpairs = list(zip(ix,iy))
 
