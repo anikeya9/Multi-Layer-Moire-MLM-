@@ -101,7 +101,7 @@ def scan(A, G, theta, tol, xlim, ylim):
     AlphaLattice_alpha = []
     for x in range(*xlim):
         for y in range(*ylim):
-            if [x,y]==[0,0]:
+            if x==0 or y==0:
                 continue
             AlphaLattice_alpha.append([x, y])
     #AlphaLattice_alpha.remove([0, 0])  # remove origin as we don't care about this
