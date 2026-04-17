@@ -1,3 +1,18 @@
+# Scratch notebooks (not part of the public release)
+notebooks/null_case_test.ipynb
+notebooks/random_str_gen.ipynb
+notebooks/structure_explore.ipynb
+notebooks/test.ipynb
+notebooks/tri_layer_test.ipynb
+notebooks/tri_layer_test_creator.ipynb
+notebooks/POSCAR_to_LAMMPS.ipynb
+notebooks/*.pkl
+notebooks/*.vasp
+notebooks/*.csv
+notebooks/benchmark_comparison.py
+notebooks/benchmark_mlm_vs_twister.py
+notebooks/claudes_code.py
+
 # External tools (not part of this project)
 Twister-main/
 Twister-main.zip
