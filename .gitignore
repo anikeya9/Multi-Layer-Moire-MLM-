@@ -1,0 +1,28 @@
+# External tools (not part of this project)
+Twister-main/
+Twister-main.zip
+MLM.zip
+
+# Manuscript build artifacts and drafts
+Manuscript/*.pdf
+MLM_tex/*.pdf
+paper_notes.md
+
+# Benchmark output figures
+Manuscript/figures/benchmark_scaling.pdf
+Manuscript/figures/benchmark_scaling.png
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.eggs/
+*.egg-info/
+dist/
+build/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
