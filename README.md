@@ -55,7 +55,7 @@ src/MLM/                      # core package
    structure_writer.py         #   replication + fractional-coord atom selection  
  notebooks/                    # reproducible examples (bilayer / trilayer / benchmark)  
  moire_structures/             # pre-computed candidate supercells (pickles)  
- Manuscript/                   # manuscript + figures  
+ assets/                       # figures  
    
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAM0lEQVR4nO3OQQmAUBBAwSeILbyYdDP8jAaxgjcRZhLMNjNntQIA4C/uvTqq6+sJAADvPS2NA0FrXqf/AAAAAElFTkSuQmCC)  
 
